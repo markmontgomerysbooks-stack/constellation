@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constellation — You are not alone</title>
+<meta name="description" content="A community space for anyone touched by suicide loss or grief — stories, books, films, VR, and meditation, shared with care.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Karla:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink-night: #1B2340;
+    --ink-night-deep: #12172E;
+    --parchment: #F4EDE0;
+    --gold: #D9A650;
+    --gold-soft: rgba(217, 166, 80, 0.55);
+    --rose: #C97B84;
+    --slate: #5C6B8A;
+    --slate-line: rgba(92, 107, 138, 0.35);
+
+    --font-display: 'Source Serif 4', Georgia, serif;
+    --font-body: 'Karla', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--ink-night);
+    color: var(--parchment);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--gold);
+    color: var(--ink-night);
+    padding: 0.75rem 1.25rem;
+    z-index: 200;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 6px 0;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
+  /* Visible keyboard focus everywhere */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ============ CRISIS BANNER ============ */
+  .crisis-banner {
+    background: var(--ink-night-deep);
+    border-bottom: 1px solid var(--slate-line);
+    padding: 0.85rem 1.25rem;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  .crisis-banner strong {
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .crisis-banner a.call-link {
+    color: var(--parchment);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-soft);
+    text-underline-offset: 3px;
+  }
+  .crisis-banner a.call-link:hover {
+    text-decoration-color: var(--gold);
+  }
+
+  /* ============ HERO / STARFIELD ============ */
+  .hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+
+  #starfield {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+    color: var(--parchment);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero p.sub {
+    font-size: 1.1rem;
+    color: rgba(244, 237, 224, 0.75);
+    max-width: 480px;
+    margin: 0 auto 2.25rem;
+  }
+
+  .hero-disclaimer {
+    font-size: 0.85rem;
+    color: rgba(244, 237, 224, 0.55);
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  .btn-enter {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ink-night);
+    background: var(--gold);
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 0 0 0 rgba(217, 166, 80, 0);
+  }
+  .btn-enter:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px -6px rgba(217, 166, 80, 0.5);
+  }
+
+  /* ============ NAVIGATION GRID ============ */
+  .rooms {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 5rem;
+  }
+
+  .rooms-intro {
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .rooms-intro .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  .rooms-intro h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.6rem;
+    margin: 0.6rem 0 0;
+    color: var(--parchment);
+  }
+
+  .room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1.1rem;
+  }
+
+  .room-card {
+    display: block;
+    text-decoration: none;
+    background: rgba(244, 237, 224, 0.03);
+    border: 1px solid var(--slate-line);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  }
+
+  .room-card:hover {
+    border-color: var(--gold-soft);
+    background: rgba(217, 166, 80, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .room-card .icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 1rem;
+    color: var(--gold);
+  }
+
+  .room-card h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0 0 0.4rem;
+    color: var(--parchment);
+  }
+
+  .room-card p {
+    font-size: 0.9rem;
+    color: rgba(244, 237, 224, 0.6);
+    margin: 0;
+  }
+
+  /* ============ GALLERY ============ */
+  .gallery {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 5rem;
+    border-top: 1px solid var(--slate-line);
+    padding-top: 4rem;
+  }
+
+  .gallery-note {
+    font-size: 0.9rem;
+    color: rgba(244, 237, 224, 0.55);
+    margin: 0.6rem 0 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.6rem;
+    margin-top: 2.25rem;
+  }
+
+  .gallery-item {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--slate-line);
+    background: rgba(244, 237, 224, 0.03);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Hide broken-image icon gracefully until real art is uploaded */
+  .gallery-item img {
+    color: transparent;
+  }
+
+  /* ============ ADD YOUR LIGHT ============ */
+  .add-light {
+    text-align: center;
+    padding: 3.5rem 1.5rem 5rem;
+    border-top: 1px solid var(--slate-line);
+  }
+  .add-light h2 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    margin: 0 0 0.6rem;
+  }
+  .add-light p {
+    color: rgba(244, 237, 224, 0.6);
+    max-width: 440px;
+    margin: 0 auto 1.75rem;
+    font-size: 0.95rem;
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--gold);
+    background: transparent;
+    padding: 0.75rem 1.75rem;
+    border-radius: 999px;
+    text-decoration: none;
+    border: 1px solid var(--gold-soft);
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .btn-outline:hover {
+    background: rgba(217, 166, 80, 0.08);
+    border-color: var(--gold);
+  }
+  .add-light .moderation-note {
+    margin-top: 1.25rem;
+    font-size: 0.78rem;
+    color: rgba(244, 237, 224, 0.4);
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.8rem;
+    color: rgba(244, 237, 224, 0.4);
+    border-top: 1px solid var(--slate-line);
+  }
+  footer a { color: var(--slate); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Google Translate widget - restyle to fit design */
+  #google_translate_element {
+    display: inline-block;
+    margin-top: 0.6rem;
+  }
+  .goog-te-gadget { font-family: var(--font-mono) !important; font-size: 0.72rem !important; color: rgba(244,237,224,0.4) !important; }
+  .goog-te-gadget .goog-te-combo {
+    background: var(--ink-night-deep);
+    color: var(--parchment);
+    border: 1px solid var(--slate-line);
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+  }
+  .goog-logo-link, .goog-te-gadget span { display: none !important; }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #starfield { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#rooms" class="skip-link">Skip to navigation</a>
+
+<!-- ============ CRISIS BANNER ============ -->
+<div class="crisis-banner">
+  If you are in crisis right now, please reach out: call or text <strong>988</strong>
+  (Suicide &amp; Crisis Lifeline) — <a class="call-link" href="tel:988">tap to call</a>.
+  Outside the U.S., search "<a class="call-link" href="https://findahelpline.com" target="_blank" rel="noopener">crisis line near me</a>."
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Constellation</span>
+    <h1>You are not alone <em>in this dark.</em></h1>
+    <p class="sub">A space built by people who have lost someone, and by everyone who cares — to share what has helped us keep going.</p>
+    <a class="btn-enter" href="#rooms">Enter gently</a>
+    <p class="hero-disclaimer" style="margin-top:2rem;">This site is a community of shared stories and resources. It is not therapy, and it is not a crisis service. If you are in danger, please contact 988 or your local emergency number.</p>
+  </div>
+</section>
+
+<!-- ============ ROOMS / NAVIGATION ============ -->
+<section class="rooms" id="rooms">
+  <div class="rooms-intro">
+    <span class="eyebrow">Find a room</span>
+    <h2>Wherever you are today, there's a door for you.</h2>
+  </div>
+
+  <div class="room-grid">
+    <a class="room-card" href="library.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <h3>The Library</h3>
+      <p>Books and articles that have helped others heal.</p>
+    </a>
+
+    <a class="room-card" href="theater.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+      <h3>The Theater</h3>
+      <p>Films and videos, shared to offer comfort or perspective.</p>
+    </a>
+
+    <a class="room-card" href="vr.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="10" rx="3"/><circle cx="8" cy="12" r="1.6"/><circle cx="16" cy="12" r="1.6"/></svg>
+      <h3>The VR Room</h3>
+      <p>Virtual reality experiences for grounding, calm, and connection.</p>
+    </a>
+
+    <a class="room-card" href="app.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+      <h3>The App</h3>
+      <p>Tools you can carry with you, day to day.</p>
+    </a>
+
+    <a class="room-card" href="meditation.html">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <h3>Meditation</h3>
+      <p>Music and guided moments of quiet.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="rooms-intro">
+    <span class="eyebrow">Refreshed daily</span>
+    <h2>Today's light</h2>
+    <p class="gallery-note">A small piece of art, changed each day — something to look at while you sit here for a moment.</p>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- 
+      HOW TO UPDATE THIS GALLERY:
+      1. Put your image files in the /images/gallery/ folder in your GitHub repo.
+      2. Name them exactly art-01.jpg, art-02.jpg, art-03.jpg ... art-30.jpg (that pattern below).
+      3. To swap in new art, just replace a file with a new image using the SAME filename, then push to GitHub.
+         You do not need to touch this HTML file at all to change the pictures.
+      4. If you want MORE or FEWER tiles than 30, add or delete <a class="gallery-item"> blocks below.
+    -->
+    <a class="gallery-item" href="images/gallery/art-01.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-01.jpg" alt="Daily art piece 1" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-02.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-02.jpg" alt="Daily art piece 2" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-03.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-03.jpg" alt="Daily art piece 3" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-04.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-04.jpg" alt="Daily art piece 4" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-05.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-05.jpg" alt="Daily art piece 5" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-06.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-06.jpg" alt="Daily art piece 6" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-07.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-07.jpg" alt="Daily art piece 7" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-08.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-08.jpg" alt="Daily art piece 8" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-09.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-09.jpg" alt="Daily art piece 9" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-10.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-10.jpg" alt="Daily art piece 10" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-11.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-11.jpg" alt="Daily art piece 11" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-12.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-12.jpg" alt="Daily art piece 12" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-13.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-13.jpg" alt="Daily art piece 13" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-14.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-14.jpg" alt="Daily art piece 14" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-15.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-15.jpg" alt="Daily art piece 15" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-16.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-16.jpg" alt="Daily art piece 16" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-17.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-17.jpg" alt="Daily art piece 17" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-18.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-18.jpg" alt="Daily art piece 18" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-19.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-19.jpg" alt="Daily art piece 19" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-20.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-20.jpg" alt="Daily art piece 20" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-21.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-21.jpg" alt="Daily art piece 21" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-22.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-22.jpg" alt="Daily art piece 22" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-23.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-23.jpg" alt="Daily art piece 23" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-24.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-24.jpg" alt="Daily art piece 24" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-25.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-25.jpg" alt="Daily art piece 25" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-26.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-26.jpg" alt="Daily art piece 26" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-27.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-27.jpg" alt="Daily art piece 27" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-28.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-28.jpg" alt="Daily art piece 28" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-29.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-29.jpg" alt="Daily art piece 29" loading="lazy"></a>
+    <a class="gallery-item" href="images/gallery/art-30.jpg" target="_blank" rel="noopener"><img src="images/gallery/art-30.jpg" alt="Daily art piece 30" loading="lazy"></a>
+  </div>
+</section>
+
+<!-- ============ ADD YOUR LIGHT ============ -->
+<section class="add-light">
+  <h2>Add your light</h2>
+  <p>Share a book, video, VR experience, or piece of music that has helped you. Every submission is reviewed with care before it's added.</p>
+  <a class="btn-outline" href="#" id="submitLink">Share something healing</a>
+  <p class="moderation-note">All submissions are reviewed before publishing. This helps keep the space safe for everyone.</p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div id="google_translate_element"></div>
+  <p style="margin-top:1rem;">Constellation is not a substitute for professional care.
+  If you or someone you know is struggling, please reach <a href="tel:988">988</a> or a licensed therapist.</p>
+</footer>
+
+<!-- Google Translate Widget -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      { pageLanguage: 'en', autoDisplay: true },
+      'google_translate_element'
+    );
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- Starfield canvas animation -->
+<script>
+(function() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let stars = [];
+  let w, h;
+
+  function resize() {
+    w = canvas.width = canvas.offsetWidth;
+    h = canvas.height = canvas.offsetHeight;
+    const count = Math.floor((w * h) / 9000);
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.3 + 0.3,
+      baseAlpha: Math.random() * 0.5 + 0.25,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.015 + 0.005
+    }));
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      const twinkle = reduceMotion ? 0 : Math.sin(t * s.speed + s.phase) * 0.35;
+      const alpha = Math.max(0, Math.min(1, s.baseAlpha + twinkle));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(244, 237, 224, ${alpha})`;
+      ctx.fill();
+    }
+    if (!reduceMotion) requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(draw);
+  if (reduceMotion) draw(0);
+})();
+</script>
+
+</body>
+</html>
